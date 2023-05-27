@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Platform } from 'react-native';
 import { Background, Container, Logo, AreaInput, ButtonSubmit, ButtonText, Input } from '../SignIn/styles';
+import { AuthContext } from '../../context/auth';
 
 export default function SignUp(){
+  const {user} = useContext(AuthContext);
+
+  function handleSignUp(){
+    console.log(user);
+  }
   return(
     <Background>
       <Container behavior={Platform.OS === 'ios' ? 'padding':''} >
@@ -20,7 +26,7 @@ export default function SignUp(){
           <Input placeholder="*******"  />
         </AreaInput>
 
-        <ButtonSubmit>
+        <ButtonSubmit onPress={handleSignUp}>
           <ButtonText>Cadastrar</ButtonText>
         </ButtonSubmit>
       </Container>
