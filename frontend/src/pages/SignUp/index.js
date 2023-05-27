@@ -1,13 +1,18 @@
-import React, { useContext } from 'react';
-import { View, Text, Platform } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, Platform, ActivityIndicator } from 'react-native';
 import { Background, Container, Logo, AreaInput, ButtonSubmit, ButtonText, Input } from '../SignIn/styles';
 import { AuthContext } from '../../context/auth';
 
 export default function SignUp(){
-  const {user} = useContext(AuthContext);
+  const {SignUp,loadingAuth} = useContext(AuthContext);
+  const [name,setName] = useState('');
+  const [password,setPassword] = useState('');
+  const [email,setEmail] = useState('');
+
 
   function handleSignUp(){
-    console.log(user);
+    if(name === ''|| email === ''|| password === '') return;
+    SignUp(name,email,password);
   }
   return(
     <Background>
@@ -15,19 +20,36 @@ export default function SignUp(){
         <Logo source={require('../../assets/Logo.png')} />
 
         <AreaInput>
-          <Input placeholder="Nome"  />
+          <Input
+            value={name}
+            onChangeText={(text) => setName(text)} 
+            placeholder="Nome"  />
         </AreaInput>
 
         <AreaInput>
-          <Input placeholder="Email"  />
+          <Input
+            value={email}
+            onChangeText={(text) => setEmail(text)} 
+            placeholder="Email"  />
         </AreaInput>
 
         <AreaInput>
-          <Input placeholder="*******"  />
+          <Input
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            placeholder="*******"
+            secureTextEntry={true}
+          />
         </AreaInput>
 
         <ButtonSubmit onPress={handleSignUp}>
-          <ButtonText>Cadastrar</ButtonText>
+          {
+            loadingAuth ? (
+              <ActivityIndicator size={20} color='#FFF' />
+            ):(
+              <ButtonText>Cadastrar</ButtonText>
+            )
+          }
         </ButtonSubmit>
       </Container>
     </Background>
