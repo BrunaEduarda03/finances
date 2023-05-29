@@ -10,10 +10,11 @@ export default function SignUp(){
   const [email,setEmail] = useState('');
 
 
-  function handleSignUp(){
-    if(name === ''|| email === ''|| password === '') return;
+function handleSignUp(){
+  if(name === ''|| email === ''|| password === '') return;
     SignUp(name,email,password);
-  }
+}
+
   return(
     <Background>
       <Container behavior={Platform.OS === 'ios' ? 'padding':''} >
@@ -30,7 +31,8 @@ export default function SignUp(){
           <Input
             value={email}
             onChangeText={(text) => setEmail(text)} 
-            placeholder="Email"  />
+            placeholder="Email"
+          />
         </AreaInput>
 
         <AreaInput>

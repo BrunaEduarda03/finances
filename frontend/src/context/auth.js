@@ -7,6 +7,7 @@ export const AuthContext = createContext({});
 function AuthProvider({children}){
   const navigation = useNavigation();
   const [loadingAuth,setLoadingAuth] = useState(false);
+  const [user,setUser] = useState(null);
   
   async function SignUp(name,password,email){
     setLoadingAuth(true);
@@ -25,7 +26,7 @@ function AuthProvider({children}){
     
   }
   return (
-  <AuthContext.Provider value={{SignUp,loadingAuth}}>
+  <AuthContext.Provider value={{SignUp,loadingAuth,signed:!!user}}>
     {children}
   </AuthContext.Provider>
 )
